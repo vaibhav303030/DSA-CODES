@@ -1,0 +1,67 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+#include<vector>
+using namespace std;
+class  queue{
+    public:
+   
+    int rear=-1;
+    int front=0;
+
+int n=5;
+int a[5];
+void add(int val){
+    if(rear==n-1){
+        cout<<"queue is ful";
+    }
+    else{
+        rear++;
+        a[rear]=val;
+        
+    }
+    
+}
+void del(){
+    if(rear==-1){
+        cout<<"queue is mpty";
+    }
+    else
+    {
+       front++;
+    }
+}
+void display(){
+    for(int i=front;i<=rear;i++){
+        cout<<a[i]<<endl;
+    }
+    
+}
+};
+int main() {
+queue a;
+int ch;
+do{
+    cout<<"add\ndel\ndisplay"<<endl;
+    cout<<"enter choice";
+    cin>>ch;
+    switch(ch){
+        case 1:
+        int val;
+        cin>>val;
+        a.add(val);
+        break;
+         case 2:
+        a.del();
+        break;
+         case 3:
+        a.display();
+        break;
+    }
+    }while(ch!=0);
+    
+
+
+
+
+    return 0;
+}
