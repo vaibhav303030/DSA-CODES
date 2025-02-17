@@ -1,0 +1,72 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+class lin{
+    int id;
+    lin *next;
+   
+    public:
+    void accept();
+    void display();
+    void middle();
+}*head;
+void lin::accept(){
+    lin *newnode=new lin;
+    cout<<"enter the new id ";
+    cin>>newnode->id;
+    newnode->next=NULL;
+    
+    if(head==NULL){
+        head=newnode;
+    }
+    else{
+        lin *temp=head;
+        while(temp->next!=NULL){
+            temp=temp->next;
+        }
+        temp->next=newnode;
+    }
+}
+void lin::display(){
+    lin *temp=head;
+    while(temp!=NULL){
+        cout<<temp->id<<"->";
+        temp=temp->next;
+    }
+}
+void lin::middle(){
+    lin *temp= new lin;
+    lin *slow=new lin;
+    lin *fast=new lin;
+    slow=head;
+    fast=head;
+    while(fast->next!=NULL){
+        
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+    cout<<slow->id;
+    
+}
+int main() {
+    lin l;
+    int ch;
+    do{
+        cout<<endl<<"1.Accept\n2.Display\n3.middle"<<endl;
+        cout<<"enter the choice ";
+        cin>>ch;
+        switch(ch){
+            case 1:
+            l.accept();
+            break;
+            case 2:
+            l.display();
+            break;
+            case 3:
+            l.middle();
+            break;
+        }
+    }while(ch!=4);
+
+    return 0;
+}
