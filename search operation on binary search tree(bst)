@@ -1,0 +1,119 @@
+#include<iostream>
+using namespace std;
+int count=0;
+class BT{
+    public:
+    int id;
+    int salary;
+    BT *lc;
+    BT *rc;
+    void create();
+    void insert(BT *root,BT *next);
+    void display(BT *root);
+    void search(BT *root,int key);
+   
+}*root;
+void BT::create(){
+   if(root==NULL){
+root=new BT;
+   }
+
+cout<<"enter the id andd the price of the employee";
+cin>>root->id>>root->salary;
+root->lc=NULL;
+root->rc=NULL;
+int ch;
+do {
+cout<<"do you want to insert the new node in the BT";
+
+cin>>ch;
+if(ch==1){
+BT *next=new BT;
+cout<<"enter the id and the salary of the employee ";
+cin>>next->id>>next->salary;
+next->lc=NULL;
+next->rc=NULL;
+insert(root,next);
+}
+}while(ch==1);
+
+}
+
+void BT::insert(BT *root,BT* next){
+if (root->salary < next->salary) {
+     if (root->lc == NULL) {
+        root->lc = next;
+     } else {
+      insert(root->lc, next);
+     }
+}
+else {
+   if (root->rc == NULL) {
+       root->rc = next;
+   } else {
+       insert(root->rc, next);
+   }
+}
+
+
+}
+
+void BT::display(BT *root) {
+    
+    if (root == NULL) return;  // Base case to prevent segmentation fault
+
+    display(root->lc);
+    cout << "ID: " << root->id << ", Salary: " << root->salary << endl;
+    count++;
+    display(root->rc);
+}
+void BT::search(BT *root,int key){
+     if (root == NULL) {  // Base case to prevent segmentation fault
+        cout << "Data not found." << endl;
+        return;
+    }
+        if(key==root->salary){
+            cout<<"data is found"<<endl;
+            cout<<"information of the employee"<<endl;
+            cout<<root->id<<"\t"<<root->salary<<endl;
+            return;
+            
+        }
+        else if(key> root->salary){
+            
+                search(root->rc,key);
+            
+        }
+        else{
+            search(root->lc,key);
+        }
+        
+    }
+
+int main(){
+BT b;
+int ch;
+do{
+cout<<"1.create\n2.display\n 3.count\n4.search"<<endl;
+cout<<"enter the choice";
+cin>>ch;
+switch(ch){
+    case 1:
+    b.create();
+    break;
+    case 2:
+    b.display(root);
+    break;
+    case 3:
+    cout<<"total count is the"<<count<<endl;
+    break;
+    case 4:
+    int key;
+    cout<<"enter the key";
+    cin>>key;
+    b.search(root,key);
+    break;
+}
+}while(ch!=5);
+
+}
