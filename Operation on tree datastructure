@@ -1,0 +1,158 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int coun=0;
+class BT{
+    public:
+    int id;
+    int salary;
+    BT *lc;
+    BT *rc;
+    void create();
+    void insert(BT *root,BT *next);
+    void display(BT *root);
+    int height(BT *root);
+    void info(BT *root);
+    void maxsal(BT *root);
+   
+}*root;
+void BT :: create()
+{
+ 
+  int ch;
+  BT *next;
+  root = new BT;
+  cout<<"\nEnter the data: ";
+  cin>>root->id;
+  cin>>root->salary;
+  root->lc=root->rc=NULL;
+  
+  do
+  {
+    cout<<"\nYou want to add new data enter (1/0): ";
+    cin>>ch;
+    
+    if(ch==1)
+    {
+     next = new BT;
+     cout<<"Enter the data: ";
+     cin>>next->id;
+     cin>>next->salary;
+     next->lc=next->rc=NULL;
+     insert(root, next);
+    }
+    
+  }while(ch==1);
+}
+
+
+void BT::insert(BT *root,BT* next){
+  char ch1;
+  cout<<"Where you want to insert "<<next->id<<" of "<<root->id<< " (L or R): ";
+  cin>>ch1;
+  if(ch1=='L' || ch1=='l'){
+      if(root->lc==NULL){
+       root->lc=next;
+      }
+      else{
+            insert(root->lc,next);
+      }
+  }
+  else if(ch1== 'R' || ch1=='r'){
+      if(root->rc==NULL){
+      root->rc = next;
+      }
+  
+  else{
+      insert(root->rc,next);
+  }
+  
+}
+}
+
+void BT::display(BT *root) {
+    
+    if (root == NULL) return;  // Base case to prevent segmentation fault
+
+    display(root->lc);
+    cout << "ID: " << root->id << ", Salary: " << root->salary << endl;
+    coun++;
+    display(root->rc);
+}
+int BT::height(BT *root){
+    if(root==NULL){
+        return -1;
+    }
+    else{
+     int h1=height(root->lc);
+     int h2=height(root->rc);
+       return max(h1,h2) + 1;
+    }
+}
+ void BT :: info(BT *root){
+     if(root == NULL){
+         return;
+     }
+     else{
+         
+         info(root->lc);
+         cout<<root->id<<"\t"<<root->salary<<endl;
+         info(root->rc);
+     }
+ }
+  void BT :: maxsal(BT *root){
+   
+   int temp=0;
+   {
+     if(root == NULL){
+         return;
+     }
+    
+         
+        
+          maxsal(root->lc);
+         if(root->salary >temp){
+             temp = root->salary;
+         }
+          maxsal(root->rc);
+         
+     
+     
+   }
+   cout<<"max sal is"<<temp<<endl;
+
+   }  
+  
+int main(){
+BT b;
+int ch;
+do{
+cout<<"1.create\n2.display\n 3.count\n 4.height\n 5.info\n 6.maxsalary"<<endl;
+cout<<"enter the choice";
+cin>>ch;
+switch(ch){
+    case 1:
+    b.create();
+    break;
+    case 2:
+    b.display(root);
+    break;
+    case 3:
+    cout<<"total count is the"<<coun<<endl;
+    break;
+     case 4:
+    cout<<"height of the tree is"<<b.height(root)<<endl;
+    
+
+    break;
+     case 5:
+   b.info(root);
+    break;
+        case 6:
+        
+   b.maxsal(root);
+   break;
+}
+}while(ch!=7);
+
+}
