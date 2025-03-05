@@ -1,0 +1,39 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+
+class hn{
+    public:
+ 
+ 
+    void happy(int n);
+        
+    };
+void hn::happy(int n){
+    
+   int sum=0;
+  
+  while(n>0){
+      int a=n%10;
+      int num =a*a;
+      sum+=num;
+      n=n/10;
+  }
+  if(sum==1){
+      cout<<"happy number"<<endl;
+  }
+  else if(sum==4){
+      cout<<"uhappy ";
+  }
+  else{
+      happy(sum);
+  }
+
+}
+
+int main() {
+hn r;
+     int n=78;
+r.happy(n);
+    return 0;
+}
