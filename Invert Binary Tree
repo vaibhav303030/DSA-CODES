@@ -1,0 +1,118 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+class tree{
+    int id;
+     tree *right;
+    tree *left;
+    public:
+    void create();
+    void insert(tree *root,tree *newnode);
+    void display(tree * root);
+    void revrse(tree *root);
+    
+}*root;
+void tree::create(){
+    int ch;
+  
+    root= new tree;
+    cout<<"enter the id of the student you want ot in the tree";
+    cin>>root->id;
+    root->left=NULL;
+    root->right= NULL;
+    
+    do{
+    cout<<"do want to continue press 1";
+    cin>>ch;
+    if(ch==1){
+          tree *newnode= new tree;
+    cout<<"enter the id of the student";
+    cin>>newnode->id;
+     newnode->left=NULL;
+    newnode->right= NULL;
+    insert(root,newnode);
+    }
+        
+    }while(ch==1);
+    
+}
+void tree::insert(tree *root,tree *newnode){
+    char ch;
+    cout<<"you want to insert the "<<newnode->id<<"at which side of the "<<root->id<<"l or r";
+    cin>>ch;
+    if(ch =='L'  || ch=='l'){
+         if(root->left ==NULL){
+         root->left =newnode;
+             
+         }
+         else{
+           insert(root->left,newnode);
+             
+         }
+        
+    }
+        if(ch =='R'  || ch=='r'){
+         if(root->right ==NULL){
+             root->right=newnode;
+             
+         }
+         else{
+             insert(root->right,newnode);
+             
+         }
+        
+    }
+    
+}
+void tree::display(tree *root){
+    if(root == NULL){
+        
+        return ;
+        
+    }
+    else{
+        display(root->left);
+        cout<<root->id;
+        display(root->right);
+        
+    }
+    
+}
+void tree::revrse(tree *root){
+    if(root ==NULL){
+        return;
+    }
+    else{
+        tree *temp =root->left;
+        root->left = root->right;
+        root->right = temp;
+        revrse(root->left);
+        revrse(root->right);
+    }
+    
+}
+
+int main() {
+   tree t;
+ 
+   int ch;
+   do{
+     cout<<"1.create\n2.display\n3.revrse"<<endl;
+   cin>>ch;
+   switch(ch){
+       case 1:
+       t.create();
+       break;
+       case 2:
+       t.display(root);
+       break;
+       case 3:
+       t.revrse(root);
+       break;
+       
+   }
+   }while(ch!=4);
+
+
+    return 0;
+}
