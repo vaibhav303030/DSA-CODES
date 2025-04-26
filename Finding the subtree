@@ -1,0 +1,154 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+
+class tree {
+    public:
+    int id;
+    tree *right;
+    tree *left;
+public:
+    static tree* root; // make root static so it is shared
+    void create();
+    void insert(tree *root, tree *newnode);
+    void display(tree *root);
+    void subtree();
+    bool isIdentical(tree* a, tree* b);
+    bool isSubtree(tree* root, tree* subRoot);
+};
+
+tree* tree::root = NULL; // define static variable
+
+void tree::create() {
+    int ch;
+    root = new tree;
+    cout << "Enter the id of the student you want to add in the tree: ";
+    cin >> root->id;
+    root->left = NULL;
+    root->right = NULL;
+    
+    do {
+        cout << "Do you want to insert another node? Press 1 for Yes, 0 for No: ";
+        cin >> ch;
+        if (ch == 1) {
+            tree* newnode = new tree;
+            cout << "Enter the id of the student: ";
+            cin >> newnode->id;
+            newnode->left = NULL;
+            newnode->right = NULL;
+            insert(root, newnode);
+        }
+    } while (ch == 1);
+}
+
+void tree::insert(tree *root, tree *newnode) {
+    char ch;
+    cout << "Where you want to insert " << newnode->id << " in " << root->id << "? (l for left, r for right): ";
+    cin >> ch;
+    if (ch == 'L' || ch == 'l') {
+        if (root->left == NULL) {
+            root->left = newnode;
+        } else {
+            insert(root->left, newnode);
+        }
+    } else if (ch == 'R' || ch == 'r') {
+        if (root->right == NULL) {
+            root->right = newnode;
+        } else {
+            insert(root->right, newnode);
+        }
+    }
+}
+
+void tree::display(tree *root) {
+    if (root == NULL) {
+        return;
+    }
+    display(root->left);
+    cout << root->id << " ";
+    display(root->right);
+}
+
+// Function to check if two trees are identical
+
+
+// Helper function to create a new tree (subtree)
+void tree::subtree() {
+  tree * subroot =new tree;
+    cout << "Enter the id of the root node for SubTree: ";
+    cin >> subroot->id;
+    subroot->left = NULL;
+    subroot->right = NULL;
+
+    int ch;
+    do {
+        cout << "Do you want to insert another node in SubTree? Press 1 for Yes, 0 for No: ";
+        cin >> ch;
+        if (ch == 1) {
+            tree* newnode = new tree;
+            cout << "Enter the id of the student: ";
+            cin >> newnode->id;
+            newnode->left = NULL;
+            newnode->right = NULL;
+            cout << "Insert into SubTree: ";
+            insert(subroot, newnode);
+        }
+    } while (ch == 1);
+
+    // Check if the subtree is part of the main tree
+    if (isSubtree(root, subroot)) {
+        cout << "The SubTree is a part of the Main Tree!" << endl;
+    } else {
+        cout << "The SubTree is not a part of the Main Tree!" << endl;
+    }
+}
+
+
+  bool tree::isSubtree(tree* root, tree* subroot){
+      if(root ==NULL || subroot == NULL){
+          return false;
+      }
+      if(root->id == subroot->id && isIdentical(root,subroot)){
+          return true;
+      }
+      return isSubtree(root->left,subroot) ||isSubtree(root->right,subroot); 
+      
+  }
+  
+  bool tree::isIdentical(tree* root, tree* subroot){
+      if( root == NULL || subroot == NULL){
+          return subroot==root;
+      }
+      return root->id == subroot->id && isIdentical(root->left,subroot->left) && isIdentical(root->right,subroot->right);
+  } 
+int main() {
+    tree t;
+    int ch;
+    do {
+        cout << "\n1. Create Main Tree\n2. Display Main Tree\n3. Create SubTree and Check if Subtree Exists\n4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> ch;
+        switch (ch) {
+            case 1:
+                t.create();
+                break;
+            case 2:
+                cout << "Tree in Inorder Traversal: ";
+                t.display(tree::root);
+                cout << endl;
+                break;
+         case 3:
+         cout<<"subtree"<<endl;
+         t.subtree();
+         break;
+            
+            case 4:
+                cout << "Exiting program." << endl;
+                break;
+            default:
+                cout << "Invalid choice. Try again!" << endl;
+        }
+    } while (ch != 5);
+
+    return 0;
+}
