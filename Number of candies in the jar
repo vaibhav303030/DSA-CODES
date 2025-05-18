@@ -1,0 +1,63 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+class jar{
+    public:
+    int N,S;
+    int ref;
+      int ser;
+    void accept();
+    void display();
+    void serve();
+};
+void jar::accept(){
+    cout<<"Enter the total candies in the jar";
+    cin>>N;
+    ref=N;
+    cout<<"enter the candies you want to refilled the jar again";
+    cin>>S;
+
+}
+void jar::display(){
+    cout<<"Total candies in the jar :"<<N<<endl;
+  cout<<"candies serve to the customer is"<<ser<<endl;
+}
+void jar::serve(){
+     cout<<"enter the candies required for the customer";
+    cin>>ser;
+    if(N>=ser){
+      
+   cout<<"candies are serve";
+    N=N-ser;
+    
+    }
+    else{
+        cout<<"INVALID CANDIES"<<endl;
+    }
+  if(N<=S){
+      N=ref;
+  }
+    
+}
+
+int main() {
+    int ch;
+    jar j;
+    do{
+        cout<<"1.accept\n2.display\n3.serve"<<endl;
+        cout<<"enter the choice";
+        cin>>ch;
+        switch(ch){
+            case 1:
+            j.accept();
+            break;
+            case 2:
+            j.display();
+            break;
+            case 3:
+            j.serve();
+            break;
+        }
+    }while(ch!=4);
+    return 0;
+}
